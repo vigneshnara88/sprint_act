@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Spring ACT — Sophia Partnership Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #0d0f12;
+    --ink: #1c2130;
+    --ink2: #3a4256;
+    --muted: #7a849a;
+    --rule: #e4e8f0;
+    --bg: #f8f9fc;
+    --white: #ffffff;
+    --coral: #c94f3e;
+    --coral-pale: #fdf1ef;
+    --forest: #2e6b52;
+    --forest-pale: #edf5f1;
+    --gold: #b07d2c;
+    --gold-pale: #faf5eb;
+    --slate: #3d5a80;
+    --slate-pale: #edf2f8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Karla', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAVBAR ─── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 48px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 14px; color: var(--ink);
+  }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--coral);
+  }
+  .nav-links {
+    display: flex; gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ─── HERO ─── */
+  .hero {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 72px 40px 64px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--coral);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    line-height: 1.1;
+    color: var(--black);
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--coral);
+  }
+  .hero-body {
+    font-size: 17px;
+    color: var(--ink2);
+    max-width: 640px;
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+  .hero-meta {
+    display: flex; gap: 0;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--white);
+    width: fit-content;
+  }
+  .meta-item {
+    padding: 14px 24px;
+    border-right: 1px solid var(--rule);
+  }
+  .meta-item:last-child { border-right: none; }
+  .meta-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 3px; }
+  .meta-val { font-size: 14px; font-weight: 600; color: var(--ink); }
+
+  /* ─── LAYOUT ─── */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--rule);
+    font-weight: 400;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .section-titles {}
+  .section-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--black);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .section-body {
+    font-size: 15px;
+    color: var(--ink2);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  /* ─── PATHWAYS ─── */
+  .pathways {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--rule);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .pathway {
+    background: var(--white);
+    padding: 28px;
+    transition: background 0.2s;
+  }
+  .pathway:hover { background: var(--bg); }
+  .pw-icon {
+    font-size: 22px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .pw-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .pw-body {
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.7;
+  }
+  .pw-tag {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ─── PHASE HEADER ─── */
+  .phase-intro {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+  }
+  .phase-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .badge-coral { background: var(--coral-pale); color: var(--coral); }
+  .badge-forest { background: var(--forest-pale); color: var(--forest); }
+  .badge-gold { background: var(--gold-pale); color: var(--gold); }
+
+  .phase-intro h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+  .phase-intro p {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.75;
+  }
+
+  /* ─── PHASE ACTIONS ─── */
+  .phase-actions {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .phase-action {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: flex-start;
+  }
+  .phase-action:last-child { border-bottom: none; }
+  .pa-arrow {
+    color: var(--muted);
+    font-size: 14px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .pa-text {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.65;
+  }
+  .pa-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ─── EMAIL SECTION ─── */
+  .email-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .email-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .email-switcher {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+    background: var(--bg);
+    padding: 6px;
+    border: 1px solid var(--rule);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+  }
+  .etab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    font-family: 'Karla', sans-serif;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .etab.active {
+    background: var(--white);
+    color: var(--ink);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .etab:hover:not(.active) { color: var(--ink2); }
+
+  .email-window {
+    border: 1px solid var(--rule);
+    border-radius: 0 0 12px 12px;
+    background: var(--white);
+    overflow: hidden;
+  }
+  .epanel { display: none; }
+  .epanel.active { display: block; }
+
+  .email-head {
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 24px;
+  }
+  .email-row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    align-items: baseline;
+  }
+  .email-row:last-child { margin-bottom: 0; }
+  .ekey {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding-top: 1px;
+  }
+  .eval { color: var(--ink2); }
+  .eval.subject-line { color: var(--ink); font-weight: 600; font-size: 14px; }
+
+  .email-hint {
+    background: var(--forest-pale);
+    border-left: 3px solid var(--forest);
+    margin: 0 24px 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--forest);
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .email-body-text {
+    padding: 22px 24px 26px;
+    font-size: 13.5px;
+    color: var(--ink2);
+    line-height: 1.85;
+    white-space: pre-wrap;
+  }
+  .ph {
+    background: #fff8e6;
+    border: 1px dashed #ddb94c;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9a6c10;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--rule);
+  }
+  .tl-item {
+    position: relative;
+    padding: 0 0 28px 24px;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot {
+    position: absolute;
+    left: -22px; top: 6px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--rule);
+  }
+  .tl-dot.active { border-color: var(--coral); background: var(--coral); }
+  .tl-dot.next { border-color: var(--forest); background: var(--forest); }
+  .tl-dot.future { border-color: var(--gold); background: var(--gold); }
+  .tl-date {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .tl-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .tl-desc {
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--rule);
+    background: var(--white);
+    padding: 24px 48px;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: 48px 20px 40px; }
+    .hero h1 { font-size: 36px; }
+    .content { padding: 0 20px 80px; }
+    .pathways { grid-template-columns: 1fr; }
+    .hero-meta { flex-wrap: wrap; }
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    footer { padding: 20px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-dot"></div>
+    Spring ACT · Sophia Strategy
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#pathways">Pathways</a></li>
+    <li><a href="#phase1">Phase 1</a></li>
+    <li><a href="#phase2">Phase 2</a></li>
+    <li><a href="#phase3">Phase 3</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="overview">
+  <div class="hero-label">Sophia · Partnership Strategy</div>
+  <h1>Recurring partners,<br><em>embedded impact</em></h1>
+  <p class="hero-body">A roadmap for shifting Spring ACT from one-off awareness campaigns toward deep, recurring institutional partnerships — embedding Sophia within the platforms, workplaces, and institutions that people already rely on.</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-label">Horizon</div>
+      <div class="meta-val">2026–2029</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Phases</div>
+      <div class="meta-val">3</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Priority</div>
+      <div class="meta-val">Recurring sponsors</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Status</div>
+      <div class="meta-val">Internal draft</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ── PATHWAYS ── -->
+  <div class="section" id="pathways">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-titles">
+        <div class="section-kicker">Strategy</div>
+        <div class="section-title">Four integration pathways</div>
+      </div>
+    </div>
+
+    <p class="section-body">Sophia is offered not as a charity initiative but as a structured partnership product — one that organisations integrate into their own systems. This approach allows Spring ACT to scale impact through partners' existing infrastructure rather than expanding its own operational footprint, while creating a clear pathway for multi-year sponsorships.</p>
+
+    <div class="pathways">
+      <div class="pathway">
+        <span class="pw-icon">🖥️</span>
+        <div class="pw-title">Digital Platforms</div>
+        <p class="pw-body">Integrate Sophia into existing trust-and-safety flows on technology platforms and online services — including gaming platforms such as Discord and Twitch, where large communities gather and abuse can go unaddressed. When users report harassment or coercion, they are offered the option to access the chatbot for guidance and referral to support services.</p>
+        <span class="pw-tag" style="background:var(--slate-pale);color:var(--slate);">Gaming platforms · Social media · Dating apps</span>
+      </div>
+      <div class="pathway">
+        <span class="pw-icon">🏢</span>
+        <div class="pw-title">Workplaces</div>
+        <p class="pw-body">Offer Sophia through corporate wellbeing portals as an anonymous digital resource. Employees can access guidance on recognising abuse, safety planning, and support services without disclosing their situation to HR or management.</p>
+        <span class="pw-tag" style="background:var(--forest-pale);color:var(--forest);">Employers · HR portals · EAPs</span>
+      </div>
+      <div class="pathway">
+        <span class="pw-icon">🎓</span>
+        <div class="pw-title">Education</div>
+        <p class="pw-body">Embed Sophia within student wellbeing portals at universities and schools. Provides a private entry point to support before students decide whether to engage with formal safeguarding channels — with clear preventative value for young people.</p>
+        <span class="pw-tag" style="background:var(--gold-pale);color:var(--gold);">Universities · Schools · Wellbeing teams</span>
+      </div>
+      <div class="pathway">
+        <span class="pw-icon">🏥</span>
+        <div class="pw-title">Safe Access Points</div>
+        <p class="pw-body">Create discreet entry points to Sophia in everyday environments — pharmacies, supermarkets, banks, and sports venues — via QR codes or information materials. Women's football clubs represent a particularly significant channel here: match days bring together large numbers of women in a trusted community setting, making them a natural and high-impact location for discreet outreach. This mirrors existing safe-reporting schemes and reaches individuals who cannot safely access support from home.</p>
+        <span class="pw-tag" style="background:var(--coral-pale);color:var(--coral);">Retail · Finance · Women's football · Public spaces</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 1 ── -->
+  <div class="section" id="phase1">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-titles">
+        <div class="section-kicker">Phase 1 · 2026 – Early 2027</div>
+        <div class="section-title">Partnership foundations</div>
+      </div>
+    </div>
+
+    <div class="phase-intro">
+      <div class="phase-badge badge-coral">● Now</div>
+      <h3>Build the foundations for recurring partnerships</h3>
+      <p>Formalise the four Sophia pathways into a clear partnership offer. Build a pipeline of prospects. Secure a small number of anchor sponsors who provide stable funding and act as early institutional partners for Sophia. The key objective: recurring, multi-year commitments — not campaigns.</p>
+    </div>
+
+    <ul class="phase-actions">
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Formalise the partnership offer.</strong> Produce a concise partnership pack explaining what Sophia is, how it works, and how each of the four pathways operates. This is the document that goes in every outreach email.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Build a structured prospect pipeline.</strong> Map 30+ potential partners across technology, financial services, universities, and consumer brands already engaged in gender-based violence or digital safety initiatives. Use a CRM to track outreach stages.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Convert existing collaborators first.</strong> Renewal conversations with current one-off partners (L'Oréal, gaming/streaming collaborators) should be framed around multi-year commitments. Lead with specific impact evidence; offer tiered options for longer terms. Send renewal outreach 60 days before expiry.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Wave 1 outreach: Technology &amp; AI.</strong> Highest-probability first converts. Use UN AI for Good network for warm introductions. Priority targets: Microsoft (expand existing), Google, Salesforce, SAP, Cisco.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Wave 2 outreach: Financial Services &amp; Consumer Brands.</strong> CSRD regulations make a documented multi-year Sophia partnership reportable ESG impact for EU-based institutions. Targets: Mastercard, UBS, BNP Paribas, Zurich Insurance, Dove/Unilever.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Sign first anchor sponsor by Q3 2026.</strong> Minimum two-year agreement. Technology or Financial Services sector preferred given speed of CSR decision-making and ESG alignment.</span>
+      </li>
+    </ul>
+
+    <!-- EMAIL TEMPLATES -->
+    <div class="email-section-title">Outreach email templates</div>
+
+    <div class="email-switcher" id="emailTabs">
+      <button class="etab active" onclick="switchEmail(0)">A · Warm intro</button>
+      <button class="etab" onclick="switchEmail(1)">B · Cold outreach</button>
+      <button class="etab" onclick="switchEmail(2)">C · Renewal</button>
+      <button class="etab" onclick="switchEmail(3)">D · Follow-up</button>
+      <button class="etab" onclick="switchEmail(4)">E · LinkedIn</button>
+    </div>
+
+    <div class="email-window">
+
+      <!-- A -->
+      <div class="epanel active" id="ep-0">
+        <div class="email-head">
+          <div class="email-row"><span class="ekey">To</span><span class="eval"><span class="ph">[NAME]</span>, <span class="ph">[COMPANY]</span></span></div>
+          <div class="email-row"><span class="ekey">From</span><span class="eval">Spring ACT CEO / Head of Partnerships</span></div>
+          <div class="email-row"><span class="ekey">Subject</span><span class="eval subject-line">Introduction via <span class="ph">[MUTUAL CONTACT]</span> — Sophia Partnership | Spring ACT</span></div>
+        </div>
+        <div class="email-hint">Best for: Tech/AI leads where a shared network connection exists — UN AI for Good, Microsoft, advisory contacts. Always open with the contact name in the first line.</div>
+        <div class="email-body-text">Dear <span class="ph">[NAME]</span>,
+
+<span class="ph">[MUTUAL CONTACT]</span> suggested I reach out directly — they thought there might be a meaningful alignment between <span class="ph">[COMPANY]</span>'s work in <span class="ph">[CSR / trust-and-safety / responsible AI]</span> and what we are building at Spring ACT.
+
+I am <span class="ph">[YOUR NAME]</span>, <span class="ph">[TITLE]</span> at Spring ACT — a Swiss-based nonprofit and winner of the UN AI for Good Global Summit award. We developed Sophia, the world's first AI-powered digital companion supporting survivors of domestic and technology-facilitated abuse.
+
+We are currently building a cohort of founding institutional partners who will help embed Sophia within <span class="ph">[platforms / workplaces / educational environments]</span> — not as a one-off campaign, but as a permanent, discreet support resource integrated into their existing systems. Given <span class="ph">[COMPANY]</span>'s commitments to <span class="ph">[RELEVANT AREA]</span>, I believe there is a strong case for a multi-year partnership.
+
+I would love to arrange a 30-minute call to share more. Would <span class="ph">[DATE]</span> or <span class="ph">[DATE]</span> work for you?
+
+With best regards,
+<span class="ph">[YOUR NAME]</span>
+Spring ACT · springact.org
+
+P.S. I've attached a brief overview of our partnership pathways for your reference.</div>
+      </div>
+
+      <!-- B -->
+      <div class="epanel" id="ep-1">
+        <div class="email-head">
+          <div class="email-row"><span class="ekey">To</span><span class="eval">CSR / Sustainability / Trust &amp; Safety Lead, <span class="ph">[COMPANY]</span></span></div>
+          <div class="email-row"><span class="ekey">From</span><span class="eval">Spring ACT CEO / Head of Partnerships</span></div>
+          <div class="email-row"><span class="ekey">Subject</span><span class="eval subject-line">Partnership Opportunity — AI Survivor Support | Spring ACT</span></div>
+        </div>
+        <div class="email-hint">Best for: Cold outreach to Tier 1 targets. Research the person's specific role before sending and personalise the second paragraph accordingly.</div>
+        <div class="email-body-text">Dear <span class="ph">[NAME]</span>,
+
+I am reaching out because <span class="ph">[COMPANY]</span>'s work in <span class="ph">[TRUST AND SAFETY / EMPLOYEE WELLBEING / RESPONSIBLE AI / ESG]</span> aligns closely with a partnership I believe could create genuine, measurable social impact — and meaningful ESG value for your organisation.
+
+Spring ACT is a Swiss nonprofit that developed Sophia, the world's first AI-powered digital companion supporting survivors of domestic and technology-facilitated abuse. Sophia is recognised by the UN AI for Good initiative and is currently active across <span class="ph">[X countries / platforms]</span>.
+
+We are building a small number of long-term institutional partnerships in which Sophia is embedded within an organisation's existing infrastructure — not as a campaign, but as a permanent support resource. For <span class="ph">[COMPANY]</span>, this could mean:
+
+  · A discreet, anonymous support tool for <span class="ph">[employees / users / students]</span> experiencing abuse
+  · Documented, CSRD-reportable social impact for your ESG reporting
+  · A multi-year partnership with a globally recognised AI-for-good initiative
+
+I would welcome a 20-minute call this month to explore whether there is a fit.
+
+With best regards,
+<span class="ph">[YOUR NAME]</span>
+Spring ACT · springact.org</div>
+      </div>
+
+      <!-- C -->
+      <div class="epanel" id="ep-2">
+        <div class="email-head">
+          <div class="email-row"><span class="ekey">To</span><span class="eval"><span class="ph">[NAME]</span>, existing partner — <span class="ph">[COMPANY]</span></span></div>
+          <div class="email-row"><span class="ekey">From</span><span class="eval">Spring ACT CEO</span></div>
+          <div class="email-row"><span class="ekey">Subject</span><span class="eval subject-line">Renewing our partnership — Sophia's next chapter | Spring ACT</span></div>
+        </div>
+        <div class="email-hint">Best for: Existing one-off partners (L'Oréal, gaming/streaming collaborators). Send 60 days before agreement expiry. Always open with a specific impact figure from their last collaboration.</div>
+        <div class="email-body-text">Dear <span class="ph">[NAME]</span>,
+
+It has been <span class="ph">[X months / a year]</span> since <span class="ph">[COMPANY]</span> partnered with Spring ACT on <span class="ph">[CAMPAIGN / INITIATIVE]</span>, and I wanted to reach out personally to share what that support made possible — and to talk about what comes next.
+
+Thanks to your contribution, <span class="ph">[SPECIFIC IMPACT: e.g. Sophia supported X users / was integrated on X platform / reached X new communities]</span>.
+
+As we move into <span class="ph">[YEAR]</span>, we are transitioning away from one-off campaigns toward longer-term institutional partnerships that embed Sophia directly into <span class="ph">[platforms / workplaces / institutions]</span>. I would love to explore how <span class="ph">[COMPANY]</span> might deepen this relationship through a multi-year agreement — one that provides sustained impact and a clearer long-term commitment from both sides.
+
+I have attached a brief overview of our new partnership framework and would welcome a 30-minute conversation.
+
+Would <span class="ph">[DATE]</span> work for you?
+
+With warmest thanks,
+<span class="ph">[YOUR NAME]</span>
+Spring ACT · springact.org</div>
+      </div>
+
+      <!-- D -->
+      <div class="epanel" id="ep-3">
+        <div class="email-head">
+          <div class="email-row"><span class="ekey">To</span><span class="eval"><span class="ph">[NAME]</span>, <span class="ph">[COMPANY]</span></span></div>
+          <div class="email-row"><span class="ekey">From</span><span class="eval">Spring ACT CEO / Head of Partnerships</span></div>
+          <div class="email-row"><span class="ekey">Subject</span><span class="eval subject-line">Following up — Sophia partnership | Spring ACT</span></div>
+        </div>
+        <div class="email-hint">Best for: No response after 14 days. Keep it short — one sentence on the ask, an easy exit, and a specific re-entry offer. Do not resend the full pitch.</div>
+        <div class="email-body-text">Dear <span class="ph">[NAME]</span>,
+
+I wanted to follow up briefly on my email from <span class="ph">[DATE]</span>. I appreciate the volume of correspondence you receive and wanted to make sure this did not get lost.
+
+In short: Spring ACT is seeking long-term institutional partners to embed Sophia — our UN-recognised AI survivor support tool — into <span class="ph">[platforms / workplaces / educational environments]</span>. Given <span class="ph">[COMPANY]</span>'s work in <span class="ph">[RELEVANT AREA]</span>, I believe there could be a meaningful fit.
+
+If now is not the right moment, I am happy to reconnect in <span class="ph">[MONTH]</span>. If there is a better person on your team to speak with, please do let me know.
+
+Thank you for your time.
+
+<span class="ph">[YOUR NAME]</span>
+Spring ACT</div>
+      </div>
+
+      <!-- E -->
+      <div class="epanel" id="ep-4">
+        <div class="email-head">
+          <div class="email-row"><span class="ekey">Platform</span><span class="eval">LinkedIn connection request</span></div>
+          <div class="email-row"><span class="ekey">Limit</span><span class="eval">~300 characters</span></div>
+          <div class="email-row"><span class="ekey">To</span><span class="eval">CSR / Trust &amp; Safety / ESG leads at target companies</span></div>
+        </div>
+        <div class="email-hint">Keep it to two sentences. One on who you are, one on why it is relevant to them. No ask yet — the goal is the connection, not the pitch.</div>
+        <div class="email-body-text">Hi <span class="ph">[NAME]</span> — I lead partnerships at Spring ACT, a UN-recognised nonprofit using AI to support abuse survivors. We're building long-term institutional partnerships in <span class="ph">[CSR / trust-and-safety / AI-for-good]</span> and I'd love to connect.</div>
+      </div>
+
+    </div><!-- /email-window -->
+  </div><!-- /phase 1 -->
+
+  <!-- ── PHASE 2 ── -->
+  <div class="section" id="phase2">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-titles">
+        <div class="section-kicker">Phase 2 · 2027</div>
+        <div class="section-title">Pilot integrations</div>
+      </div>
+    </div>
+
+    <div class="phase-intro">
+      <div class="phase-badge badge-forest">● Next</div>
+      <h3>Demonstrate Sophia in real institutional environments</h3>
+      <p>With anchor partners secured, this phase focuses on launching live pilot integrations across the four pathways. Each pilot generates evidence of Sophia's value as an embedded support tool — evidence that drives expansion to further organisations.</p>
+    </div>
+
+    <ul class="phase-actions">
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Workplace pilots.</strong> Embed Sophia within employee wellbeing portals at 2–3 partner companies. Develop an integration guide and data-governance documentation for HR teams. Measure usage and referral outcomes over 90 days.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Education pilots.</strong> Integrate Sophia within university student wellbeing platforms in the UK and EU. Partner with student union networks and coordinate with safeguarding leads to ensure Sophia complements — not replaces — professional support.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Platform integrations.</strong> Work with technology partners to integrate Sophia within trust-and-safety tools or help-centre resources. Convert awareness-phase gaming and streaming partnerships into permanent safety integrations (Discord, Twitch, gaming platforms, dating platforms). Explore partnerships with women's football clubs to embed Sophia access points at match-day venues — a high-reach, community-trusted environment for discreet outreach.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Infrastructure partnership.</strong> Secure a long-term in-kind technology agreement covering cloud hosting, API access, and security auditing. Reduces operational costs while improving reliability. Targets: Microsoft Azure (expand), Google Cloud for Nonprofits, Cloudflare Project Galileo.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Evaluation framework.</strong> Each pilot must include clear metrics — usage patterns, user feedback, referrals to support services. This data is the foundation for Phase 3 scaling and for renewal conversations with partners.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ── PHASE 3 ── -->
+  <div class="section" id="phase3">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-titles">
+        <div class="section-kicker">Phase 3 · 2028–2029</div>
+        <div class="section-title">Scaling and sustainability</div>
+      </div>
+    </div>
+
+    <div class="phase-intro">
+      <div class="phase-badge badge-gold">● Future</div>
+      <h3>A stable, self-sustaining base of long-term partners</h3>
+      <p>Once the partnership framework has been validated through pilots, this phase scales the model globally. The goal is a diverse base of recurring sponsors who collectively fund Sophia's development and distribution — independent of short-term fundraising cycles.</p>
+    </div>
+
+    <ul class="phase-actions">
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Expand recurring sponsor network to 10+.</strong> Prioritise global organisations — large technology companies and multinational employers — that can extend Sophia's reach across multiple countries and languages in a single agreement.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Telecom and Safe Access wave.</strong> Partner with telecom providers to embed Sophia-access pathways in safe-browsing features. Explore zero-rated mobile access in lower-income regions.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Financial Services wave.</strong> Pitch multi-year ESG-linked sponsorships to Tier 1 financial institutions — framed as CSRD-reportable social impact investment. Develop Sophia's financial abuse content module in partnership with legal and professional services firms.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Multilingual deployment.</strong> Prioritise languages based on partner geography and survivor population data. Leverage technology partnerships for AI translation support to expand to 5+ languages.</span>
+      </li>
+      <li class="phase-action">
+        <span class="pa-arrow">→</span>
+        <span class="pa-text"><strong>Formalise governance.</strong> Publish a formal governance framework — partner selection criteria, data protection standards, safeguarding protocols, and an annual partner review process — ensuring every integration remains aligned with survivor safety.</span>
+      </li>
+    </ul>
+
+    <!-- TIMELINE SUMMARY -->
+    <div class="email-section-title" style="margin-top:8px;">Summary timeline</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-date">Q2–Q3 2026</div>
+        <div class="tl-title">Partnership materials built · Wave 1 outreach launched</div>
+        <div class="tl-desc">4 pathway decks complete. 30+ prospects mapped in CRM. Tech/AI sector outreach underway.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-date">Q3 2026</div>
+        <div class="tl-title">⭐ First anchor sponsor signed</div>
+        <div class="tl-desc">Minimum 2-year agreement. Technology or Financial Services sector.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-date">Q3–Q4 2026</div>
+        <div class="tl-title">One-off partners converted · Wave 2 launched</div>
+        <div class="tl-desc">L'Oréal and existing collaborators offered multi-year renewal. Financial Services and Consumer Brands outreach begins.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-date">Q1 2027</div>
+        <div class="tl-title">⭐ 3 recurring anchor sponsors secured</div>
+        <div class="tl-desc">Phase 1 milestone achieved.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot next"></div>
+        <div class="tl-date">Q2 2027</div>
+        <div class="tl-title">Workplace and education pilots launch</div>
+        <div class="tl-desc">2 corporate HR integrations active. University outreach via student union networks.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot next"></div>
+        <div class="tl-date">Q3 2027</div>
+        <div class="tl-title">Platform integrations live</div>
+        <div class="tl-desc">Discord, Twitch, gaming platforms, and dating platform safety toolkit integrations.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot next"></div>
+        <div class="tl-date">Q4 2027</div>
+        <div class="tl-title">⭐ 6 recurring sponsors · Infrastructure partner signed</div>
+        <div class="tl-desc">Phase 2 milestone achieved.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-date">Q1 2028</div>
+        <div class="tl-title">Governance framework published</div>
+        <div class="tl-desc">Partner standards, data policy, and annual review process formalised.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-date">2028–2029</div>
+        <div class="tl-title">⭐ 10+ sponsors · 5 languages · 4 countries</div>
+        <div class="tl-desc">Operational sustainability achieved. Telecom, financial services, and multilingual expansion complete.</div>
+      </div>
+    </div>
+
+  </div><!-- /phase 3 -->
+
+</div><!-- /content -->
+
+<footer>
+  <span>Spring ACT · Sophia Partnership Strategy 2026–2029 · Confidential</span>
+  <span>springact.org</span>
+</footer>
+
+<script>
+  function switchEmail(i) {
+    document.querySelectorAll('.etab').forEach((t, j) => t.classList.toggle('active', i === j));
+    document.querySelectorAll('.epanel').forEach((p, j) => p.classList.toggle('active', i === j));
+  }
+</script>
+</body>
+</html>
